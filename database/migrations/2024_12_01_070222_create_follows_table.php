@@ -14,7 +14,7 @@ return new class extends Migration
             //who follow sb
             $table->foreignId('follower_id')->constrained('users')->onDelete('cascade'); 
             //who has followed by follower
-            $table->foreignId('following_id')->constrained('users')->onDelete('cascade'); // کاربر دنبال شونده
+            $table->foreignId('following_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         
             $table->unique(['follower_id', 'following_id']); 
