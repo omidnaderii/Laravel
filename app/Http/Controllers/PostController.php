@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Attachment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -69,7 +70,7 @@ class PostController extends Controller
     
     //update post
     public function updatepost(Request $request, $postId) {
-        
+       
         $post = Post::with('attachments')->find($postId);
        
         if (!$post) {
@@ -78,14 +79,15 @@ class PostController extends Controller
         if ($post->user_id !== Auth::id()) {
             return response(['error' => 'Unauthorized'], 403);
         }
-    
+       
+       
        
             $data = $request->validate([
                 'title' => 'required|string|max:255',
                 'body' => 'nullable|string',
                 'attachments.*' => 'file|max:2048|mimes:jpg,jpeg,png,mp4,mov',
             ]);
-
+            Log::info("get data :",[$data]);
 
         $post->update([
             'title' => $data['title'],

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\ParseFormData;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
@@ -21,7 +22,8 @@ Route::middleware('auth:sanctum')->group(function () {
     //Connect to Posts
     Route::post('/posts', [PostController::class, 'create']);           
     Route::delete('/posts/{id}', [PostController::class, 'delete']);    
-    Route::put('/posts/{id}', [PostController::class, 'updatepost']);
+    Route::put('/post/{id}', [PostController::class, 'updatepost']);
+    //->middleware(ParseFormData::class);
     Route::get('/posts', [PostController::class, 'getAllPosts']);      
 
 
